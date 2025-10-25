@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VJ Cloud Tech - SAP Cloud & AI Assistant</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/jpeg" href="logo.jpeg">
+<style>
+body {font-family: 'Roboto', sans-serif; margin:0; background:#f5f7fa; color:#333; scroll-behavior: smooth;}
+nav {position: sticky; top:0; background-color: #1a73e8; display:flex; justify-content: space-between; align-items:center; padding:10px 40px; box-shadow:0 2px 8px rgba(0,0,0,0.1); z-index:1000;}
+.logo-left {height:50px; mix-blend-mode: lighten; border-radius:8px;}
+.nav-right a {color:#fff; text-decoration:none; margin-left:25px; font-weight:500; font-size:1em; transition: color 0.3s;}
+.nav-right a:hover {color:#ffdd57;}
+header {background: linear-gradient(135deg, #1a73e8, #0f4c81); color:white; text-align:center; padding:70px 20px; border-bottom-left-radius:25px; border-bottom-right-radius:25px;}
+header h1 {font-size:2.5em; margin:0;}
+header p {margin-top:10px; font-size:1.1em;}
+.container {max-width:800px; margin:60px auto; padding:0 20px;}
+h2 {color:#1a73e8; text-align:center; margin-bottom:20px;}
+p {line-height:1.6; text-align:center;}
+.card {background:white; border-radius:10px; padding:20px; margin:15px 0; box-shadow:0 4px 12px rgba(0,0,0,0.05); transition: transform 0.3s;}
+.card:hover {transform: translateY(-5px);}
+.btn {display:inline-block; margin-top:20px; padding:10px 20px; background-color:#1a73e8; color:white; border-radius:50px; text-decoration:none; transition: background 0.3s;}
+.btn:hover {background-color:#0f4c81;}
+footer {background-color: #1a73e8; color:white; text-align:center; padding:15px; border-top-left-radius:25px; border-top-right-radius:25px; font-size:0.9em;}
+.vj-chat-btn{position:fixed;right:20px;bottom:20px;background:#1a73e8;color:#fff;border-radius:999px;padding:14px 16px;cursor:pointer;border:none;font-weight:600;z-index:10000;}
+.vj-chat-window{position:fixed;right:20px;bottom:80px;width:360px;max-width:calc(100% - 40px);height:520px;background:#fff;box-shadow:0 18px 40px rgba(15,76,129,0.12);border-radius:12px;display:flex;flex-direction:column;overflow:hidden;z-index:9999;}
+.vj-chat-header{background:linear-gradient(90deg,#1a73e8,#0f4c81);color:#fff;padding:14px 16px;display:flex;align-items:center;gap:10px;}
+.vj-chat-header .title{font-weight:700;}
+.vj-chat-body{flex:1;padding:12px;overflow:auto;background:linear-gradient(180deg, rgba(26,115,232,0.02), transparent);}
+.vj-msg{max-width:78%;margin:8px 0;padding:10px 12px;border-radius:10px;line-height:1.4;}
+.vj-msg.user{margin-left:auto;background:#e8f0fe;color:#0f2340;border-bottom-right-radius:4px;}
+.vj-msg.bot{margin-right:auto;background:#fff;border:1px solid rgba(0,0,0,0.04);}
+.vj-chat-footer{padding:10px;display:flex;gap:8px;align-items:center;}
+.vj-input{flex:1;padding:10px 12px;border-radius:999px;border:1px solid rgba(0,0,0,0.08);outline:none;}
+.vj-send{background:#1a73e8;color:#fff;border:none;padding:10px 14px;border-radius:999px;cursor:pointer;}
+.vj-small{font-size:12px;color:#666;margin-top:8px;text-align:center;}
+.vj-hidden{display:none;}
+@media (max-width:420px){.vj-chat-window{right:10px;left:10px;width:auto;height:70vh;}}
+</style>
+</head>
+<body>
+
+<nav>
+<img src="logo.jpeg" alt="Logo" class="logo-left">
+<div class="nav-right">
+<a href="#home">Home</a>
+<a href="#about">About</a>
+<a href="#services">Services</a>
+<a href="#projects">Projects</a>
+<a href="#contact">Contact</a>
+</div>
+</nav>
+
+<header id="home">
+<h1>VJ Cloud Tech</h1>
+<p>Empowering Businesses with SAP Cloud Solutions & SuccessFactors</p>
+<a href="#contact" class="btn">Get in Touch</a>
+</header>
+
+<div class="container" id="about">
+<h2>About Us</h2>
+<p>VJ Cloud Tech is a trusted provider of SAP Cloud and SuccessFactors solutions with over 20 years of experience in SAP. We specialize in helping companies transform their operations through smart cloud strategies, ensuring agility, scalability, and efficiency.</p>
+</div>
+
+<div class="container" id="services">
+<h2>Our Services</h2>
+<div class="card"><h3>💻 SAP Cloud Implementation</h3><p>Comprehensive setup and deployment of SAP Cloud platforms.</p></div>
+<div class="card"><h3>☁️ Cloud Migration</h3><p>Seamless transfer of SAP on-premise systems to the cloud.</p></div>
+<div class="card"><h3>🔗 Integration</h3><p>Integrating SAP Cloud with business apps for automation and insight.</p></div>
+<div class="card"><h3>⚡ Optimization</h3><p>Performance tuning, support, and proactive monitoring.</p></div>
+<div class="card"><h3>📚 Training</h3><p>Expert-led SAP and SuccessFactors training sessions for teams.</p></div>
+</div>
+
+<div class="container" id="projects">
+<h2>Our Projects</h2>
+<p>We’ve successfully implemented SAP Cloud and SuccessFactors solutions for clients across industries, including manufacturing, healthcare, and finance — ensuring digital transformation and measurable ROI.</p>
+<a href="#contact" class="btn">Work With Us</a>
+</div>
+
+<div class="container" id="contact">
+<h2>Contact Us</h2>
+<p>📧 Email: VjCTl@outlook.com</p>
+<p>📞 Phone: +41 7563716225</p>
+<p>🔗 LinkedIn: VJ Cloudtech</p>
+<p>📍 Address: SL12HX, Slough, London, UK</p>
+</div>
+
+<footer>
+<p>© 2025 VJ CloudTech. All Rights Reserved ®</p>
+</footer>
+
+<button class="vj-chat-btn" id="vjToggle">Chat with VJ AI</button>
+<div class="vj-chat-window vj-hidden" id="vjWindow">
+  <div class="vj-chat-header">
+    <div style="width:44px;height:44px;border-radius:8px;background:#fff;display:flex;align-items:center;justify-content:center;color:#1a73e8;font-weight:700">VJ</div>
+    <div><div class="title">VJ CloudTech Assistant</div><div style="font-size:12px;opacity:0.9">Ask anything about SAP Cloud, SuccessFactors, or business</div></div>
+  </div>
+  <div class="vj-chat-body" id="vjBody"></div>
+  <div class="vj-chat-footer">
+    <input id="vjInput" class="vj-input" placeholder="Type your question..." autocomplete="off">
+    <button id="vjSend" class="vj-send">Send</button>
+  </div>
+  <div class="vj-small">Powered by GPT-4 via server</div>
+</div>
+
+<script>
+const toggleBtn = document.getElementById('vjToggle');
+const vjWindow = document.getElementById('vjWindow');
+const vjBody = document.getElementById('vjBody');
+const vjInput = document.getElementById('vjInput');
+const vjSend = document.getElementById('vjSend');
+
+toggleBtn.addEventListener('click', () => {
+  vjWindow.classList.toggle('vj-hidden');
+  if (!vjWindow.classList.contains('vj-hidden')) vjInput.focus();
+});
+
+function appendMessage(text, role) {
+  const div = document.createElement('div');
+  div.className = 'vj-msg ' + role;
+  div.textContent = text;
+  vjBody.appendChild(div);
+  vjBody.scrollTop = vjBody.scrollHeight;
+}
+
+vjSend.addEventListener('click', sendMessage);
+vjInput.addEventListener('keypress', (e) => {if(e.key==='Enter') sendMessage();});
+
+async function sendMessage(){
+  const message = vjInput.value.trim();
+  if(!message) return;
+  appendMessage(message,'user');
+  vjInput.value='';
+  const botDiv = document.createElement('div');
+  botDiv.className='vj-msg bot';
+  botDiv.textContent='Thinking...';
+  vjBody.appendChild(botDiv);
+  vjBody.scrollTop = vjBody.scrollHeight;
+  try{
+    const resp = await fetch('/api/vj-ai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message})});
+    if(!resp.ok) throw new Error('Network response not ok');
+    const data = await resp.json();
+    botDiv.textContent = data.reply || 'Sorry, could not process your request.';
+  }catch(err){
+    botDiv.textContent='Sorry, could not connect to the AI.';
+  }
+}
+</script>
+
+</body>
+</html>
