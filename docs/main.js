@@ -2,13 +2,24 @@ const SITE_CONFIG = {
   email: 'VjCTl@outlook.com',
   phoneInternational: '417563716225',
   notifyWebhook: 'https://hooks.zapier.com/hooks/catch/26526447/ucfeqg8/',
-  aiEndpoint: '/api/vj-ai'
+  aiEndpoint: window.VJ_AI_ENDPOINT || '/api/vj-ai'
 };
 
 let chatHistory = [];
+let aiUnavailable = false;
 
 function pingZapierWebhook() {
   fetch('https://hooks.zapier.com/hooks/catch/26526447/ucfeqg8/').catch(() => {});
+}
+
+async function fetchWithTimeout(url, options, timeoutMs = 8000) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    return await fetch(url, { ...options, signal: controller.signal });
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 async function sendNotification(eventType, payload = {}) {
@@ -46,19 +57,21 @@ function appendMessage(text, role, bodyEl) {
   bodyEl.scrollTop = bodyEl.scrollHeight;
 }
 
-
 function localPreviewReply(message) {
   const text = message.toLowerCase();
   if (text.includes('price') || text.includes('cost')) {
-    return 'We can share pricing after understanding scope. Please share your email and WhatsApp for a tailored quote.';
+    return 'For pricing, share your project scope, number of users, and timeline. We will send a tailored quote on email/WhatsApp.';
   }
   if (text.includes('sap')) {
-    return 'We support SAP and SuccessFactors implementation, integration, and optimization. Share your use case and timeline.';
+    return 'We support SAP/SuccessFactors implementation, integration, and optimization. Tell me your module and current challenge.';
   }
   if (text.includes('cloud')) {
-    return 'We help with cloud migration, governance, and managed operations. Tell me your current platform to suggest a plan.';
+    return 'We handle cloud migration, governance, and support. Which platform are you using now (Azure/AWS/on-prem)?';
   }
-  return 'Thanks for your message. Please share your email or WhatsApp number and our team will follow up quickly.';
+  if (text.includes('security') || text.includes('cyber')) {
+    return 'We can improve your cybersecurity with identity controls, backup and monitoring. Share your current setup to get a plan.';
+  }
+  return 'Thanks for your message. Please share your email or WhatsApp number and our team will respond quickly.';
 }
 
 function seedWelcome(bodyEl) {
@@ -98,21 +111,22 @@ async function sendMessage(vjInput, vjBody) {
   }
 
   try {
-    const resp = await fetch(SITE_CONFIG.aiEndpoint, {
+    const resp = await fetchWithTimeout(SITE_CONFIG.aiEndpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
-    });
+    }, 8000);
 
     if (!resp.ok) throw new Error('Network error');
     const data = await resp.json();
-    const reply = data.reply || 'Sorry, no response from AI.';
+    const reply = data.reply || localPreviewReply(message);
     botDiv.textContent = reply;
 
     chatHistory.push({ role: 'user', content: message });
     chatHistory.push({ role: 'assistant', content: reply });
     if (chatHistory.length > 20) chatHistory = chatHistory.slice(-20);
   } catch {
+    aiUnavailable = true;
     botDiv.textContent = localPreviewReply(message);
   }
 }
