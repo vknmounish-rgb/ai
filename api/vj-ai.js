@@ -10,7 +10,10 @@ module.exports = async function handler(req, res) {
 
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
-    res.status(500).json({ error: 'OPENAI_API_KEY is not configured.' });
+    res.status(500).json({
+      error: 'OPENAI_API_KEY is not configured.',
+      setup: 'Set OPENAI_API_KEY in your server environment (for local dev, add it to .env and restart).'
+    });
     return;
   }
 
