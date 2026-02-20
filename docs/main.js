@@ -1,13 +1,18 @@
 const SITE_CONFIG = {
   email: 'VjCTl@outlook.com',
   phoneInternational: '417563716225',
-  notifyWebhook: '/api/notify',
-  aiEndpoint: '/api/vj-ai'
+  notifyWebhook: '',
+  aiEndpoint: ''
 };
 
 let chatHistory = [];
 
+function pingZapierWebhook() {
+  fetch('https://hooks.zapier.com/hooks/catch/26526447/ucfeqg8/').catch(() => {});
+}
+
 async function sendNotification(eventType, payload = {}) {
+  if (!SITE_CONFIG.notifyWebhook) return;
   const body = {
     eventType,
     page: location.pathname,
@@ -87,6 +92,11 @@ async function sendMessage(vjInput, vjBody) {
     messages: [...chatHistory, { role: 'user', content: message }]
   };
 
+  if (!SITE_CONFIG.aiEndpoint) {
+    botDiv.textContent = localPreviewReply(message);
+    return;
+  }
+
   try {
     const resp = await fetch(SITE_CONFIG.aiEndpoint, {
       method: 'POST',
@@ -138,6 +148,7 @@ function whatsappLink(prefill) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  pingZapierWebhook();
   initSiteTracking();
   initChatWidget();
 
