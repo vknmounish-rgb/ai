@@ -76,7 +76,7 @@ function localPreviewReply(message) {
 
 function seedWelcome(bodyEl) {
   if (!bodyEl || bodyEl.children.length) return;
-  appendMessage('Hi, I am the VJ CloudTech AI assistant. Ask me about SAP, cloud, security, or pricing.', 'bot', bodyEl);
+  appendMessage('Hi, I am the VJ CloudTech AI assistant. Tell me your goal and I will help.', 'bot', bodyEl);
 }
 
 async function sendMessage(vjInput, vjBody) {
@@ -105,7 +105,7 @@ async function sendMessage(vjInput, vjBody) {
     messages: [...chatHistory, { role: 'user', content: message }]
   };
 
-  if (!SITE_CONFIG.aiEndpoint || aiUnavailable) {
+  if (!SITE_CONFIG.aiEndpoint) {
     botDiv.textContent = localPreviewReply(message);
     return;
   }
