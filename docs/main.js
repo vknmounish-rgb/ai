@@ -1,8 +1,8 @@
 const SITE_CONFIG = {
   email: 'VjCTl@outlook.com',
   phoneInternational: '417563716225',
-  notifyWebhook: '',
-  aiEndpoint: ''
+  notifyWebhook: 'https://hooks.zapier.com/hooks/catch/26526447/ucfeqg8/',
+  aiEndpoint: '/api/vj-ai'
 };
 
 let chatHistory = [];
