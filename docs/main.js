@@ -1,8 +1,9 @@
 const SITE_CONFIG = {
-  email: 'VjCTl@outlook.com',
-  phoneInternational: '417563716225',
+  email: 'vjcloudtech@vjct.co.uk',
+  phoneInternational: '447563716225',
   notifyWebhook: 'https://hooks.zapier.com/hooks/catch/26526447/ucfeqg8/',
-  aiEndpoint: window.VJ_AI_ENDPOINT || '/api/vj-ai'
+  aiEndpoint: window.VJ_AI_ENDPOINT || '',
+  aiModel: window.VJ_AI_MODEL || ''
 };
 
 let chatHistory = [];
@@ -76,7 +77,7 @@ function localPreviewReply(message) {
 
 function seedWelcome(bodyEl) {
   if (!bodyEl || bodyEl.children.length) return;
-  appendMessage('Hi, I am the VJ CloudTech AI assistant. Tell me your goal and I will help.', 'bot', bodyEl);
+  appendMessage('Hello, I am your VJ CloudTech AI assistant. How can I help you today?', 'bot', bodyEl);
 }
 
 async function sendMessage(vjInput, vjBody) {
@@ -87,7 +88,7 @@ async function sendMessage(vjInput, vjBody) {
   vjInput.value = '';
   const botDiv = document.createElement('div');
   botDiv.className = 'vj-msg bot';
-  botDiv.textContent = 'Thinking...';
+  botDiv.textContent = 'VJ AI is typing...';
   vjBody.appendChild(botDiv);
 
   const emailMatch = message.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i);
@@ -102,10 +103,11 @@ async function sendMessage(vjInput, vjBody) {
 
   const payload = {
     message,
+    model: SITE_CONFIG.aiModel || undefined,
     messages: [...chatHistory, { role: 'user', content: message }]
   };
 
-  if (!SITE_CONFIG.aiEndpoint) {
+  if (!SITE_CONFIG.aiEndpoint || aiUnavailable) {
     botDiv.textContent = localPreviewReply(message);
     return;
   }
@@ -119,7 +121,7 @@ async function sendMessage(vjInput, vjBody) {
 
     if (!resp.ok) throw new Error('Network error');
     const data = await resp.json();
-    const reply = data.reply || localPreviewReply(message);
+    const reply = data.reply || data.output || (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) || localPreviewReply(message);
     botDiv.textContent = reply;
 
     chatHistory.push({ role: 'user', content: message });
