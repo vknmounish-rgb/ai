@@ -1,6 +1,6 @@
 const SITE_CONFIG = {
-  email: 'VjCTl@outlook.com',
-  phoneInternational: '417563716225',
+  email: 'vjcloudtech@vjct.co.uk',
+  phoneInternational: '447563716225',
   notifyWebhook: 'https://hooks.zapier.com/hooks/catch/26526447/ucfeqg8/',
   aiEndpoint: window.VJ_AI_ENDPOINT || '/api/vj-ai'
 };
